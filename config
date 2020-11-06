@@ -105,7 +105,7 @@
 # True False
 #SendTextWhenSwitchEng=True
 # Candidate Word Number
-CandidateWordNumber=7
+CandidateWordNumber=9
 # Give the tips of Phrase
 # Available Value:
 # True False
