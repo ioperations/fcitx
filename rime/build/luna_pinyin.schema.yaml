@@ -1,11 +1,19 @@
 __build_info:
-  rime_version: 1.5.3
+  rime_version: 1.6.1
   timestamps:
-    default: 1576692787
-    default.custom: 1604676644
-    luna_pinyin.custom: 1604674830
-    luna_pinyin.schema: 1576692787
-    symbols: 1576692787
+    default: 1610468225
+    default.custom: 1619365552
+    grammar: 1619365554
+    grammar.custom: 1619365554
+    key_bindings: 1610468225
+    key_bindings.custom: 0
+    lua_select_character: 1619365554
+    lua_select_character.custom: 0
+    luna_pinyin.custom: 1619365554
+    luna_pinyin.schema: 1619365555
+    punctuation: 1610468225
+    punctuation.custom: 0
+    symbols: 1619365557
     symbols.custom: 0
 custom_phrase:
   db_class: stabledb
@@ -14,12 +22,16 @@ custom_phrase:
   enable_sentence: false
   initial_quality: 1
   user_dict: custom_phrase
+emoji_suggestion:
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
 engine:
   filters:
+    - "simplifier@emoji_suggestion"
     - simplifier
     - uniquifier
-    - "charset_filter@gb2312+emoji"
   processors:
+    - "lua_processor@select_character_processor"
     - ascii_composer
     - recognizer
     - key_binder
@@ -36,34 +48,22 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - "table_translator@custom_phrase"
-    - reverse_lookup_translator
     - script_translator
     - "table_translator@custom_phrase"
+    - "table_translator@custom_phrase"
+grammar:
+  language: "zh-hant-t-essay-bgw"
 key_binder:
   bindings:
-    - {accept: "Control+p", send: Up, when: composing}
-    - {accept: "Control+n", send: Down, when: composing}
-    - {accept: "Control+b", send: Left, when: composing}
-    - {accept: "Control+f", send: Right, when: composing}
-    - {accept: "Control+a", send: Home, when: composing}
-    - {accept: "Control+e", send: End, when: composing}
-    - {accept: "Control+d", send: Delete, when: composing}
-    - {accept: "Control+k", send: "Shift+Delete", when: composing}
-    - {accept: "Control+h", send: BackSpace, when: composing}
-    - {accept: "Control+g", send: Escape, when: composing}
-    - {accept: "Control+bracketleft", send: Escape, when: composing}
-    - {accept: ISO_Left_Tab, send: Page_Up, when: composing}
+    - {accept: Tab, send: Right, when: composing}
     - {accept: "Shift+Tab", send: Page_Up, when: composing}
-    - {accept: Tab, send: Page_Down, when: composing}
-    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: minus, send: Page_Up, when: paging}
     - {accept: equal, send: Page_Down, when: has_menu}
-    - {accept: comma, send: Page_Up, when: paging}
-    - {accept: period, send: Page_Down, when: has_menu}
-    - {accept: "Control+Shift+4", toggle: simplification, when: always}
+    - {accept: bracketleft, send: Page_Up, when: paging}
+    - {accept: bracketright, send: Page_Down, when: has_menu}
   import_preset: default
 menu:
-  page_size: 7
+  page_size: 8
 punctuator:
   full_shape:
     " ": {commit: "　"}
@@ -102,11 +102,11 @@ punctuator:
   half_shape:
     "!": {commit: "！"}
     "\"": {pair: ["“", "”"]}
-    "#": ["#", "№"]
-    "$": "￥"
-    "%": "%"
+    "#": "#"
+    "$": ["¥", "$", "€", "£", "¢", "¤"]
+    "%": ["%", "％", "°", "℃", "‰", "‱", "℉"]
     "&": "&"
-    "'": {pair: ["‘", "’"]}
+    "'": {pair: ["「", "」"]}
     "(": "（"
     ")": "）"
     "*": "*"
@@ -114,23 +114,23 @@ punctuator:
     ",": {commit: "，"}
     "-": "-"
     .: {commit: "。"}
-    "/": "/"
+    "/": ["/", "÷"]
     ":": {commit: "："}
     ";": {commit: "；"}
-    "<": "<"
-    "=": ["=", "々", "〃"]
-    ">": ">"
+    "<": ["《", "〈", "«", "<"]
+    "=": "="
+    ">": ["》", "〉", "»", ">"]
     "?": {commit: "？"}
-    "@": ["@", "©", "®", "℗"]
-    "[": "「"
+    "@": "@"
+    "[": ["【", "["]
     "\\": "、"
-    "]": "」"
+    "]": ["】", "]"]
     "^": {commit: "……"}
-    _: _
+    _: "──"
     "`": "`"
-    "{": "『"
-    "|": "|"
-    "}": "』"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "・", "|", "｜", "§", "¦", "‖"]
+    "}": ["』", "〗", "｝"]
     "~": "~"
   import_preset: symbols
   symbols:
@@ -177,7 +177,7 @@ punctuator:
     "/OU": ["Ȣ", "ᴽ"]
     "/P": ["Ṕ", "Ṗ", "ᴘ", "ᴾ", "Ᵽ", "Ꝑ", "Ƥ", "Ꝓ", "Ꝕ", "ꟼ"]
     "/Q": ["Ɋ", "Ꝗ", "Ꝙ"]
-    "/R": ["Ŕ", "Ř", "Ȑ", "Ȓ", "Ṙ", "ʀ", "ᴙ", "ᴿ", "Ʀ", "ꭆ", "Ɍ", "Ꞧ", "Ŗ", "Ṟ", "Ṛ", "Ṝ", "Ɽ", "ꝶ", "ʶ", "ʁ", "\xa0                   Ꝛ", "Ꝝ"]
+    "/R": ["Ŕ", "Ř", "Ȑ", "Ȓ", "Ṙ", "ʀ", "ᴙ", "ᴿ", "Ʀ", "ꭆ", "Ɍ", "Ꞧ", "Ŗ", "Ṟ", "Ṛ", "Ṝ", "Ɽ", "ꝶ", "ʶ", "ʁ", "Ꝛ", "Ꝝ"]
     "/S": ["Ś", "Ŝ", "Š", "Ṡ", "ꜱ", "Ꞩ", "Ş", "Ṣ", "Ș", "Ṥ", "Ṧ", "Ṩ", "Ʃ", "ẞ"]
     "/T": ["Ť", "Ṫ", "ᴛ", "ᵀ", "Ʈ", "Þ", "Ꝥ", "Ꝧ", "Ŧ", "Ⱦ", "Ţ", "Ṯ", "Ṱ", "Ṭ", "Ț", "Ƭ", "Ʇ"]
     "/TZ": ["Ꜩ"]
@@ -343,15 +343,7 @@ recognizer:
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
 reverse_lookup:
-  comment_format:
-    - "xform/([nl])v/$1ü/"
-  dictionary: stroke
-  enable_completion: true
-  preedit_format:
-    - "xlit/hspnz/一丨丿丶乙/"
-  prefix: "`"
-  suffix: "'"
-  tips: "〔筆畫〕"
+  {}
 schema:
   author:
     - "佛振 <chen.sst@gmail.com>"
@@ -370,25 +362,36 @@ schema:
   version: 0.24
 speller:
   algebra:
+    - "xform/^([b-df-np-z])$/$1_/"
     - "erase/^xx$/"
+    - "abbrev/^([a-z]).+$/$1/"
+    - "abbrev/^([zcs]h).+$/$1/"
+    - "derive/([aeiou])ng$/$1gn/"
+    - "derive/([dtngkhrzcs])o(u|ng)$/$1o/"
+    - "derive/ong$/on/"
+    - "derive/ao$/oa/"
+    - "derive/([iu])a(o|ng?)$/a$1$2/"
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
 switches:
   - name: ascii_mode
     reset: 0
     states: ["中文", "西文"]
+  - name: emoji_suggestion
+    reset: 1
+    states: [Yes, No]
   - name: full_shape
     states: ["半角", "全角"]
   - name: simplification
+    reset: 1
     states: ["漢字", "汉字"]
   - name: ascii_punct
     states: ["。，", "．，"]
-  - options: ["gb2312+emoji", "gbk+emoji", utf8]
-    reset: 1
-    states: [GB2312E, GBKE, "UTF-8"]
 translator:
-  dictionary: luna_pinyin.custom
+  contextual_suggestions: true
+  dictionary: luna_pinyin.extended
+  enable_correction: false
+  max_homographs: 7
+  max_homophones: 7
   preedit_format:
-    - "xform/([nl])v/$1ü/"
-    - "xform/([nl])ue/$1üe/"
-    - "xform/([jqxy])v/$1u/"
+    - "xform/([nljqxyzcs])v/$1ü/"
