@@ -13,7 +13,7 @@ patch:
     #“新手包”的其他便捷设定，这里修改为只有朙月拼音·简化字一个方案。
     #你可以很方便地添加。
     - schema: luna_pinyin_fluency
-    - schema: double_pinyin_flypy
+    #- schema: double_pinyin_flypy
 
   "menu/page_size": 6
   recognizer:
