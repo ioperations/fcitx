@@ -13,3 +13,4 @@ log/crash.log
 
 rime/build
 ./rime/user.yaml
+rime/luna_pinyin.userdb
