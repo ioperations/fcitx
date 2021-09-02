@@ -1,58 +1,23 @@
+#
+#摘抄者：Sediment（百度贴吧ACsediemnt），参考百度贴吧用户 半月湾C 的帖子。
+#本文件定义rime输入法的输入特性，包括输入方案，选词，按键，符号，快捷键等。
+#下面内容大都是默认设置。在这里进行修改后重新部署小狼毫就会应用这边的修改。
+#井号“#”后面的内容，比如本条，都是注释，不起代码的作用，只是用于说明。
+#注意，本文件使用两个空格作为一个缩进，不能使用tab。
+#注意，文件中使用的符号几乎都是英文符号。
+#
 patch:
   schema_list:
-    - schema: double_pinyin_flypy # 小鹤双拼
-    - schema: luna_pinyin # 全拼
-    # - schema: double_pinyin # 自然码
-  switcher/hotkeys:
-    - "Control+grave" # 注意是control+`，不是command+`
-  switcher/save_options:
-    - full_shape
-    - ascii_punct
-    - simplification
-    - zh_hans
-    - emoji_suggestion
-  menu/page_size: 8
-  ascii_composer: # 设置caps、shift、control等键的作用
-    good_old_caps_lock: true # 若为true，caps只切换大小写
-    switch_key:
-      Shift_L: commit_code
-      Shift_R: noop
-      Control_L: noop
-      Control_R: noop
-      Caps_Lock: commit_code
-      Eisu_toggle: clear
-  key_binder/bindings: # 设置哪些键可以翻页，需要哪个取消注释即可
-    # - { when: composing, accept: Tab, send: Page_Up } # Tab 翻页
-    - { when: composing, accept: Tab, send: Right } # Tab 移动光标向右
-    - { when: composing, accept: Shift+Tab, send: Page_Up }
-    - { when: paging, accept: minus, send: Page_Up }
-    - { when: has_menu, accept: equal, send: Page_Down }
-    - { when: paging, accept: bracketleft, send: Page_Up }
-    - { when: has_menu, accept: bracketright, send: Page_Down }
-    # - {accept: "Control+p", send: Up, when: composing}
-    # - {accept: "Control+n", send: Down, when: composing}
-    # - {accept: "Control+b", send: Left, when: composing}
-    # - {accept: "Control+f", send: Right, when: composing}
-    # - {accept: "Control+a", send: Home, when: composing}
-    # - {accept: "Control+e", send: End, when: composing}
-    # - {accept: "Control+d", send: Delete, when: composing}
-    # - {accept: "Control+k", send: "Shift+Delete", when: composing}
-    # - {accept: "Control+h", send: BackSpace, when: composing}
-    # - {accept: "Control+g", send: Escape, when: composing}
-    # - {accept: "Control+bracketleft", send: Escape, when: composing}
-    # - { when: has_menu, accept: semicolon, send: 2 }
-    # - { when: has_menu, accept: apostrophe, send: 3 }
-    # - {accept: comma, send: Page_Up, when: paging}
-    # - {accept: period, send: Page_Down, when: has_menu}
-    # - {accept: "Control+Shift+1", select: .next, when: always}
-    # - {accept: "Control+Shift+2", toggle: ascii_mode, when: always}
-    # - {accept: "Control+Shift+3", toggle: full_shape, when: always}
-    # - {accept: "Control+Shift+4", toggle: simplification, when: always}
-    # - {accept: "Control+Shift+5", toggle: extended_charset, when: always}
-    # - {accept: "Control+Shift+exclam", select: .next, when: always}
-    # - {accept: "Control+Shift+at", toggle: ascii_mode, when: always}
-    # - {accept: "Control+Shift+numbersign", toggle: full_shape, when: always}
-    # - {accept: "Control+Shift+dollar", toggle: simplification, when: always}
-    # - {accept: "Control+Shift+percent", toggle: extended_charset, when: always}
-    # - {accept: "Shift+space", toggle: full_shape, when: always}
-    # - {accept: "Control+period", toggle: ascii_punct, when: always}
+    - schema: luna_pinyin
+#    - schema: luna_pinyin_simp #这里设定你选用的输入方案。为配合本
+    #“新手包”的其他便捷设定，这里修改为只有朙月拼音·简化字一个方案。
+    #你可以很方便地添加。
+    - schema: luna_pinyin_fluency
+    - schema: double_pinyin_flypy
+
+  "menu/page_size": 6
+  recognizer:
+    patterns:
+      email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+      uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+      url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
