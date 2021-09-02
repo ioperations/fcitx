@@ -11,3 +11,5 @@ log/crash.log
 .undodir
 .vim-session*
 
+rime/build
+./rime/user.yaml
