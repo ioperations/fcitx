@@ -5,13 +5,11 @@ conf/fcitx-pinyin.config
 dbus/*
 googlepinyin/
 clipboard/
-
 clipboard/history.dat
 log/crash.log
-.undodir
-.vim-session*
-
+log
 rime/build
-./rime/user.yaml
+rime/user.yaml
 rime/luna_pinyin.userdb
-rime/clover.userdb
+rime/clover.userdb/*
+
