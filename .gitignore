@@ -10,6 +10,7 @@ log/crash.log
 log
 rime/build
 rime/user.yaml
+rime/sync
 rime/luna_pinyin.userdb
 rime/clover.userdb/*
 
